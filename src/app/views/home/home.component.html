@@ -1,0 +1,65 @@
+<div class="row"> 
+    <div class="col-md-12 col-md-offset-3">
+        <form [formGroup]="personalDetails" id="msform">
+            <ul id="progressbar">
+                <li [ngClass]="step>=1 ? 'active ' : 'inactive'">Personal Details</li>
+                <li [ngClass]="step>=2 ? 'active' : 'inactive'">Social Profiles</li>
+                <li [ngClass]="step==3 ? 'active' : 'inactive'">Account Setup</li>
+            </ul>
+            <fieldset  *ngIf="step == 1" >
+                <h2 class="fs-title">Personal Details</h2>
+                <input type="text" formControlName="name"  [ngClass]="{ 'is-invalid': personal_step && personal.name.errors }" placeholder="Full Name"/>
+                <div *ngIf="personal_step && personalDetails.controls.name.errors">
+                    <div *ngIf="personal.name.errors?.required" style="color: red">*Name is required</div>
+                </div>
+                <input type="text" formControlName="username" name="phone" placeholder="Username"/>
+                <div *ngIf="personal_step && personalDetails.controls.username.errors">
+                  <div *ngIf="personal.username.errors?.required" style="color: red">*Username is required</div>
+              </div>
+                <input (click)="next()" type="button" name="next" class="next action-button" value="Next"/>
+            </fieldset>
+        </form>
+         <form [formGroup]="addressDetails" id="msform">
+            <fieldset *ngIf="step == 2" >
+                <h2 class="fs-title">Address Details</h2>
+                <input type="text" formControlName="billingAddress"  placeholder="Billing address"/>
+                <div *ngIf="address_step && addressDetails.controls.billingAddress.errors">
+                    <div *ngIf="address.billingAddress.errors?.required" style="color: red">*Billing address is required</div>
+                </div>
+                <input type="number" rows="5" cols="5" formControlName="pincode"  placeholder="Pincode">
+                <div *ngIf="address_step && addressDetails.controls.pincode.errors">
+                    <div *ngIf="address.pincode.errors?.required" style="color: red">*Pincode is required</div>
+                </div>
+                <input type="number" formControlName="phone"  placeholder="Phone Number"/>
+                <div *ngIf="address_step && addressDetails.controls.phone.errors">
+                    <div *ngIf="address.phone.errors?.required" style="color: red">*Phone Number is required</div>
+                </div>
+                <input (click)="previous()" type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                <input  (click)="next()" type="button" name="next" class="next action-button" value="Next"/>
+            </fieldset>
+        </form>
+         <form [formGroup]="cardDetails" id="msform">
+            <fieldset *ngIf="step == 3">
+                <h2 class="fs-title">Cedit Card Details</h2>
+                <input type="number" formControlName="cardNumber" placeholder="Card Number"/>
+                <div *ngIf="card && cardDetails.controls.cardNumber.errors">
+                    <div *ngIf="card.cardNumber.errors?.required" style="color: red">*Card Number is required</div>
+                </div>
+                <input type="date" formControlName="expiryDate"/>
+                <div *ngIf="card && cardDetails.controls.expiryDate.errors">
+                    <div *ngIf="card.expiryDate.errors?.required" style="color: red">*Expiry Date is required</div>
+                </div>
+                <input type="text" formControlName="secureCode" placeholder="Secure Code"/>
+                <div *ngIf="card && cardDetails.controls.secureCode.errors">
+                    <div *ngIf="card.secureCode.errors?.required" style="color: red">Secure Code is required</div>
+                </div>
+                <input type="text" formControlName="nameOnCard" placeholder="Name on Card"/>
+                <div *ngIf="card && cardDetails.controls.nameOnCard.errors">
+                    <div *ngIf="card.nameOnCard.errors?.required" style="color: red">Name on Card is required</div>
+                </div>
+                <input (click)="previous()" type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                <input (click)="submit()" type="submit" name="submit" class="submit action-button" value="Submit"/>
+            </fieldset>
+        </form>
+    </div>
+</div>
